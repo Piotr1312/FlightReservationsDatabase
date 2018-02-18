@@ -1,0 +1,9 @@
+CREATE OR REPLACE TRIGGER on_flight_add
+  AFTER INSERT OR UPDATE ON Flight
+  FOR EACH ROW
+BEGIN
+IF :NEW.ARRDATE < :NEW.DEPDATE THEN 
+      RAISE_APPLICATION_ERROR(-20001, 'Arrival date earlier than departure date');
+  END IF;
+  END;
+/
